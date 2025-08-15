@@ -37,9 +37,11 @@ guesser_messages = [
 
 # Let’s keep track of Q&A
 history = []
+q_count = 1
 
-for i in range(1, 21):
-    print(f"\n🔄 Round {i}")
+for i in range(1, 11):
+    print(f"\n🔄 Round {q_count}")
+    q_count += 1
     # Guesser asks a question
     question = call_chatgpt(guesser_messages)
     print("Guesser:", question)
@@ -58,6 +60,9 @@ for i in range(1, 21):
     guesser_messages.append({"role": "assistant", "content": question})
     guesser_messages.append({"role": "user", "content": answer})
 
+
+    print(f"\n🔄 Round {q_count}")
+    q_count += 1
     # Check if guesser wants to guess
     guess_check_prompt = guesser_messages + [
         {"role": "user", "content": "Based on the answers so far, do you want to guess? If yes, say: 'Is it <guess>?'. If not, ask the next yes/no question."}
@@ -93,4 +98,3 @@ for i in range(1, 21):
 
 else:
     print("❌ Guesser used all 20 questions without guessing correctly.")
-
